@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../../logo.svg'
 import { Link } from 'react-router-dom';
+import logo from '../../logo.svg'
 
 class Navbar extends React.Component {
     render() {
@@ -9,6 +9,11 @@ class Navbar extends React.Component {
                 <Link className="navbar-brand ml-5" to="/">
                     <img src={logo} alt="logo" style={{ width: '35px' }}/>
                 </Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span><i className="fas fa-bars" style={{ color: '#fff' }}/></span>
+                </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav m-auto">
                         <li className="nav-item active">

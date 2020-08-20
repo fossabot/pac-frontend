@@ -15,7 +15,7 @@ function Footer() {
                                 <li>Starine Novaka 23</li>
                                 <li>Belgrade 11060</li>
                                 <li>Serbia</li>
-                                <li>some.email@prodyna.com</li>
+                                <li>mdzunic@prodyna.com</li>
                             </ul>
                         </div>
                         { /* Column 2 */}
