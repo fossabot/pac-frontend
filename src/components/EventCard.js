@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 
-class Info extends Component {
+class EventCard extends Component {
     constructor(props) {
         super(props);
     }
@@ -19,7 +19,6 @@ class Info extends Component {
     }
 
     render() {
-
         const {
             id,
             name,
@@ -60,4 +59,4 @@ class Info extends Component {
     }
 }
 
-export default Info;
+export default EventCard;
