@@ -1,23 +1,43 @@
 import React from 'react';
-import {InfoConsumer} from "../context";
-import Info from "../Info";
+import EventCard from "../EventCard";
 
-import {events} from "../../testdata/data"
+import {events as testEvents} from "../../testdata/data"
 
-function Events() {
-    return (
-        <div className="container">
-            <div className="row mt-5">
-                <InfoConsumer>
-                    {data => {
-                        return data.info.map(item => {
-                            return <Info key={item.id} item={item}/>
-                        })
-                    }}
-                </InfoConsumer>
+class Events extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          events: [],
+        };
+    }
+
+    componentDidMount() {
+        // TODO call API here
+        const events = testEvents.slice();
+        events.forEach(event => {
+            event.topics = ["Java", "JavaScript", "Kubernetes"];
+        })
+
+        this.setState({
+            events: events,
+        });
+
+        console.log(events);
+    }
+
+    render() {
+        const eventCards = this.state.events.map((event) =>
+            <EventCard key={event.id} event={event}/>
+        );
+
+        return (
+            <div className="container">
+                <div className="row mt-5">
+                    {eventCards}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Events;

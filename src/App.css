@@ -13,3 +13,7 @@
 .navbar-toggler {
     border: none;
 }
+
+.card-img, .card-img-top {
+    height: 14rem;
+}

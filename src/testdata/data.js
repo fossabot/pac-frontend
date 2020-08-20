@@ -39,7 +39,7 @@ export const events = [
         id: 4,
         name: "Cloud Native Conference",
         beginDate: "2021-05-22T00:00:00Z",
-        endDate: "2021-06-23T00:00:00Z",
+        endDate: "2021-05-23T00:00:00Z",
         location: locations[2], // Belgrade Fair Building One
     },
     {
