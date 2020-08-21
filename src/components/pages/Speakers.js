@@ -1,7 +1,7 @@
 import React from 'react';
 import SpeakerCard from "../SpeakerCard";
-
-import {speakers as testSpeakers} from "../../testdata/data";
+import Rest from "../../rest";
+import axios from "axios";
 
 
 class Speakers extends React.Component {
@@ -13,14 +13,34 @@ class Speakers extends React.Component {
     }
 
     componentDidMount() {
-        // TODO call API here
-        const speakers = testSpeakers.slice();
-        speakers.forEach(speaker => {
-            speaker.talks = [{ id: 1, name: "HEHEHE"}, { id: 2, name: "Jhahahahaava"}];
-        })
-        this.setState({
-            speakers: speakers,
-        });
+        const rest = new Rest();
+        rest.doGet("http://localhost:9090/persons")
+            .then((response) => {
+                const speakers = response.data.slice();
+
+                const promises = [];
+                speakers.forEach(speaker => {
+                    promises.push(rest.doGet("http://localhost:9090/talks/person/" + speaker.id));
+                });
+
+                axios.all(promises)
+                    .then(axios.spread((...responses) => {
+                            // Attach the talks to the speakers
+                            responses.forEach((response, i) => {
+                                // Eliminate duplicate topics as well
+                                speakers[i].talks = response.data;
+                            });
+
+                            this.setState({
+                                speakers: speakers,
+                            });
+                        })
+                    ).catch(errors => {
+                    console.error(errors);
+                });
+            }, (error) => {
+                console.log(error);
+            });
     }
 
     render() {

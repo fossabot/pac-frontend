@@ -2,9 +2,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 
 class EventCard extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     formatDate(dateString) {
         try {
@@ -44,7 +41,7 @@ class EventCard extends Component {
                         <h6 className="card-title">Topics:</h6>
                         <p className="card-text">
                             {topics.map((topic) =>
-                                <span className="badge badge-info mx-1">{topic}</span>
+                                <span key={topic.id} className="badge badge-info mx-1">{topic.name}</span>
                             )}
                         </p>
                         <Link to={"/eventDetails/" + id} className="btn btn-outline-primary text-uppercase">

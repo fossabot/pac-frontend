@@ -2,9 +2,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 
 class SpeakerCard extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {
@@ -33,7 +30,7 @@ class SpeakerCard extends Component {
                         <p className="card-text">
                             <h6 className="card-title">Talks:</h6>
                             {talks.map((talk) =>
-                                <Link to={"/talkDetails/" + talk.id} className="card-link">{talk.name}</Link>
+                                <Link to={"/talkDetails/" + talk.id} className="card-link">{talk.title}</Link>
                             )}
                         </p>
                     </div>

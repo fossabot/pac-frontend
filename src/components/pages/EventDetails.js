@@ -1,10 +1,7 @@
 import React from 'react';
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 class EventDetails extends React.Component {
-    constructor(params) {
-        super(params);
-    }
 
     render() {
         return (

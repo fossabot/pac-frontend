@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
-import {organizations, speakers as testSpeakers} from "../../testdata/data";
+import Rest from "../../rest";
 
 class SpeakerDetails extends React.Component {
     constructor(params) {
@@ -17,14 +17,25 @@ class SpeakerDetails extends React.Component {
     componentDidMount() {
         const speakerId = this.props.match.params.id;
 
-        // TODO call API here
-        const speakers = testSpeakers.slice();
-        speakers.forEach(speaker => {
-            speaker.talks = [{ id: 1, name: "HEHEHE"}, { id: 2, name: "Jhahahahaava"}];
-        })
-        this.setState({
-            speaker: speakers[speakerId - 1],
-        });
+        const rest = new Rest();
+        rest.doGet("http://localhost:9090/persons/" + speakerId)
+            .then((response) => {
+                const speaker = response.data;
+
+                rest.doGet("http://localhost:9090/talks/person/" + speakerId)
+                    .then((response) => {
+                        speaker.talks = response.data.slice()
+
+                        this.setState({
+                            speaker: speaker,
+                        });
+                    }, (error) => {
+                        console.log(error);
+                    });
+
+            }, (error) => {
+                console.log(error);
+            });
     }
 
     render() {
@@ -43,7 +54,7 @@ class SpeakerDetails extends React.Component {
                         <dt className="col-sm-3">Talks</dt>
                         <dd className="col-sm-9">
                             {talks.map((talk) =>
-                                <Link to={"/talkDetails/" + talk.id} className="card-link">{talk.name}</Link>
+                                <Link to={"/talkDetails/" + talk.id} key={talk.id} className="card-link">{talk.title}</Link>
                             )}
                         </dd>
                     </dl>

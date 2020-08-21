@@ -1,26 +1,45 @@
 import React from 'react';
+import axios from "axios"
+import Rest from "../../rest";
 import EventCard from "../EventCard";
-
-import {events as testEvents} from "../../testdata/data"
 
 class Events extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          events: [],
+            events: [],
         };
     }
 
     componentDidMount() {
-        // TODO call API here
-        const events = testEvents.slice();
-        events.forEach(event => {
-            event.topics = ["Java", "JavaScript", "Kubernetes"];
-        })
+        const rest = new Rest();
+        rest.doGet("http://localhost:9090/events")
+            .then((response) => {
+                const events = response.data.slice();
 
-        this.setState({
-            events: events,
-        });
+                const promises = [];
+                events.forEach(event => {
+                    promises.push(rest.doGet("http://localhost:9090/topics/event/" + event.id));
+                });
+
+                axios.all(promises)
+                    .then(axios.spread((...responses) => {
+                            // Attach the topics to the events
+                            responses.forEach((response, i) => {
+                                // Eliminate duplicate topics as well
+                                events[i].topics = response.data.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i)
+                            });
+
+                            this.setState({
+                                events: events,
+                            });
+                        })
+                    ).catch(errors => {
+                    console.error(errors);
+                });
+            }, (error) => {
+                console.log(error);
+            });
     }
 
     render() {

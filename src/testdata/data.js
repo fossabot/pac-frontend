@@ -183,7 +183,7 @@ export const talks = [
 export const talkDates = [
     {
         id: 1,
-        beginDate: "2021-02-12T14:00:00Z",
+        beginDate: "2021-05-12T14:00:00Z",
         talk: talks[0],         // Java, Spring, and You
         room: rooms[0],         // Red Room
         event: events[0],       // Best Java Conference
@@ -191,7 +191,7 @@ export const talkDates = [
     },
     {
         id: 2,
-        beginDate: "2021-02-12T14:00:00Z",
+        beginDate: "2021-05-02T10:00:00Z",
         talk: talks[1],         // Fullstack JavaScript on Kubernetes
         room: rooms[1],         // White Room
         event: events[1],       // Prodyna Job Fair
