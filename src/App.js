@@ -3,11 +3,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Pages
-import Events from './components/pages/Events'
-import EventDetails from './components/pages/EventDetails'
-import Speakers from './components/pages/Speakers'
-import SpeakerDetails from './components/pages/SpeakerDetails';
-import TalkDetails from './components/pages/TalkDetails';
+import Events from './components/events/Events'
+import EventDetails from './components/events/EventDetails'
+import Speakers from './components/speakers/Speakers'
+import SpeakerDetails from './components/speakers/SpeakerDetails';
+import TalkDetails from './components/talks/TalkDetails';
 // Layouts
 import Navbar from './components/layouts/Navbar'
 import Footer from './components/layouts/Footer'

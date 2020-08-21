@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
-import Rest from "../../rest";
+import Rest from "../../utils/rest";
 
 class SpeakerDetails extends React.Component {
     constructor(params) {

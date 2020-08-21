@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios"
-import Rest from "../../rest";
-import EventCard from "../EventCard";
+import Rest from "../../utils/rest";
+import EventCard from "./EventCard";
 
 class Events extends React.Component {
     constructor(props) {

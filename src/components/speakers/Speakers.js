@@ -1,6 +1,6 @@
 import React from 'react';
-import SpeakerCard from "../SpeakerCard";
-import Rest from "../../rest";
+import SpeakerCard from "./SpeakerCard";
+import Rest from "../../utils/rest";
 import axios from "axios";
 
 
@@ -27,7 +27,6 @@ class Speakers extends React.Component {
                     .then(axios.spread((...responses) => {
                             // Attach the talks to the speakers
                             responses.forEach((response, i) => {
-                                // Eliminate duplicate topics as well
                                 speakers[i].talks = response.data;
                             });
 
