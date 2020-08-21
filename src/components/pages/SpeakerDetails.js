@@ -24,7 +24,7 @@ class SpeakerDetails extends React.Component {
 
                 rest.doGet("http://localhost:9090/talks/person/" + speakerId)
                     .then((response) => {
-                        speaker.talks = response.data.slice()
+                        speaker.talks = response.data;
 
                         this.setState({
                             speaker: speaker,
