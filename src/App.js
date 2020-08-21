@@ -6,9 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Events from './components/pages/Events'
 import EventDetails from './components/pages/EventDetails'
 import Speakers from './components/pages/Speakers'
-import Contacts from './components/pages/Contacts';
-import TalkDetails from './components/pages/TalkDetails';
 import SpeakerDetails from './components/pages/SpeakerDetails';
+import TalkDetails from './components/pages/TalkDetails';
 // Layouts
 import Navbar from './components/layouts/Navbar'
 import Footer from './components/layouts/Footer'
@@ -25,7 +24,6 @@ function App() {
                     <Route path="/eventDetails/:id" children={EventDetails}/>
                     <Route path="/speakers" component={Speakers}/>
                     <Route path="/speakerDetails/:id" children={SpeakerDetails}/>
-                    <Route path="/contacts" component={Contacts}/>
                     <Route path="/talkDetails/:id" children={TalkDetails}/>
                 </Switch>
                 <Footer/>

@@ -47,9 +47,7 @@ class EventCard extends Component {
                                 <span className="badge badge-info mx-1">{topic}</span>
                             )}
                         </p>
-
-                        <Link to={"/eventDetails/" + id}
-                              className="btn btn-outline-primary text-uppercase">
+                        <Link to={"/eventDetails/" + id} className="btn btn-outline-primary text-uppercase">
                             More Info
                         </Link>
                     </div>

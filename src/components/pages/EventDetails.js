@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class EventDetails extends React.Component {
     constructor(params) {
@@ -8,8 +8,10 @@ class EventDetails extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>EventDetails id: {this.props.match.params.id}</h2>
+            <div className="container">
+                <div className="row mt-5">
+                    <h2>EventDetails id: {this.props.match.params.id}</h2>
+                </div>
             </div>
         );
     }

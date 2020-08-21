@@ -24,17 +24,16 @@ class SpeakerCard extends Component {
                             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
                             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                         <div className="text-center">
-                            <Link to={"/speakerDetails/" + id} className="btn btn-outline-primary text-uppercase ">
+                            <Link to={"/speakerDetails/" + id} className="btn btn-outline-primary text-uppercase">
                                 View Profile
                             </Link>
                         </div>
-
                     </div>
                     <div className="card-footer">
                         <p className="card-text">
                             <h6 className="card-title">Talks:</h6>
                             {talks.map((talk) =>
-                                <a href={"/talkDetails/" + talk.id} className="card-link">{talk.name}</a>
+                                <Link to={"/talkDetails/" + talk.id} className="card-link">{talk.name}</Link>
                             )}
                         </p>
                     </div>

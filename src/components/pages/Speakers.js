@@ -16,7 +16,7 @@ class Speakers extends React.Component {
         // TODO call API here
         const speakers = testSpeakers.slice();
         speakers.forEach(speaker => {
-            speaker.talks = [{name: "HEHEHE"}, { name: "Jhahahahaava"}];
+            speaker.talks = [{ id: 1, name: "HEHEHE"}, { id: 2, name: "Jhahahahaava"}];
         })
         this.setState({
             speakers: speakers,
