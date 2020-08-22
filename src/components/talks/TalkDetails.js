@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
-import {talks as testTalks} from "../../testdata/data";
 import Rest from "../../utils/rest";
 
 class TalkDetails extends React.Component {

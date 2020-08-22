@@ -27,12 +27,12 @@ class SpeakerCard extends Component {
                         </div>
                     </div>
                     <div className="card-footer">
-                        <p className="card-text">
+                        <div className="card-text">
                             <h6 className="card-title">Talks:</h6>
                             {talks.map((talk) =>
-                                <Link to={"/talkDetails/" + talk.id} className="card-link">{talk.title}</Link>
+                                <Link to={"/talkDetails/" + talk.id} key={talk.id} className="card-link">{talk.title}</Link>
                             )}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
