@@ -1,60 +1,45 @@
 import React from 'react';
+import rest from "../../utils/rest";
 import SpeakerCard from "./SpeakerCard";
-import Rest from "../../utils/rest";
-import axios from "axios";
 
+const Speakers = () => {
+    const [speakers, setSpeakers] = React.useState([]);
+    const [error, setError] = React.useState("");
 
-class Speakers extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            speakers: [],
-        };
-    }
+    React.useEffect(() => {
+        async function fetchData() {
+            try {
+                const speakers = await rest.doGet(`${process.env.REACT_APP_HOST}/persons`);
 
-    componentDidMount() {
-        const rest = new Rest();
-        rest.doGet("http://localhost:9090/persons")
-            .then((response) => {
-                const speakers = response.data;
-
-                const promises = [];
-                speakers.forEach(speaker => {
-                    promises.push(rest.doGet("http://localhost:9090/talks/person/" + speaker.id));
+                const promises = speakers.data.map(async speaker => {
+                    const ret = await rest.doGet(`${process.env.REACT_APP_HOST}/talks/person/${speaker.id}`);
+                    return ret.data;
                 });
 
-                axios.all(promises)
-                    .then(axios.spread((...responses) => {
-                            // Attach the talks to the speakers
-                            responses.forEach((response, i) => {
-                                speakers[i].talks = response.data;
-                            });
-
-                            this.setState({
-                                speakers: speakers,
-                            });
-                        })
-                    ).catch(errors => {
-                    console.error(errors);
+                const talks = await Promise.all(promises);
+                speakers.data.map((speaker, i) => {
+                    return Object.assign(speaker, {talks: talks[i]});
                 });
-            }, (error) => {
-                console.log(error);
-            });
-    }
 
-    render() {
-        const speakerCards = this.state.speakers.map((speaker) =>
-            <SpeakerCard key={speaker.id} speaker={speaker}/>
-        );
+                setSpeakers(speakers.data);
+            } catch (e) {
+                setError(e.message);
+            }
+        }
 
-        return (
-            <div className="container">
-                <div className="row mt-5">
-                    {speakerCards}
-                </div>
+        fetchData();
+    }, [speakers, error]);
+
+    return (
+        <div className="container">
+            <div className="row mt-5">
+                {error && <h1>{error}</h1>}
+                {speakers.map((speaker) =>
+                    <SpeakerCard key={speaker.id} speaker={speaker}/>
+                )}
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Speakers;

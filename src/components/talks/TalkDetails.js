@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
-import Rest from "../../utils/rest";
+import rest from "../../utils/rest";
 
 class TalkDetails extends React.Component {
     constructor(params) {
@@ -20,7 +20,6 @@ class TalkDetails extends React.Component {
     componentDidMount() {
         const talkId = this.props.match.params.id;
 
-        const rest = new Rest();
         rest.doGet("http://localhost:9090/talks/" + talkId)
             .then((response) => {
                 const talk = response.data;

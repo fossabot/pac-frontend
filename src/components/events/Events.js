@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios"
-import Rest from "../../utils/rest";
+import rest from "../../utils/rest";
 import EventCard from "./EventCard";
 
 class Events extends React.Component {
@@ -12,7 +12,6 @@ class Events extends React.Component {
     }
 
     componentDidMount() {
-        const rest = new Rest();
         rest.doGet("http://localhost:9090/events")
             .then((response) => {
                 const events = response.data.slice();
