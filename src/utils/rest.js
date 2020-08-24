@@ -39,4 +39,4 @@ class Rest {
     }
 }
 
-export default Rest;
+export default new Rest();
