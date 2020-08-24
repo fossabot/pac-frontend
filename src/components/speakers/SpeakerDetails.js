@@ -2,65 +2,49 @@ import React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import rest from "../../utils/rest";
 
-class SpeakerDetails extends React.Component {
-    constructor(params) {
-        super(params);
-        this.state = {
-            speaker: {
-                id: "",
-                organization: {},
-                talks: [],
+const SpeakerDetails = (props) => {
+    const [speaker, setSpeaker] = React.useState({
+        id: "",
+        organization: {},
+        talks: [],
+    });
+    const [error, setError] = React.useState("");
+
+    React.useEffect(() => {
+        async function fetchData() {
+            try {
+                const speaker = await rest.doGet(`${process.env.REACT_APP_HOST}/persons/${props.match.params.id}`);
+                const talks = await rest.doGet(`${process.env.REACT_APP_HOST}/talks/person/${props.match.params.id}`);
+
+                debugger;
+                Object.assign(speaker.data, {talks: talks.data});
+
+                setSpeaker(speaker.data);
+            } catch (e) {
+                setError(e.message);
             }
-        };
-    }
+        }
 
-    componentDidMount() {
-        const speakerId = this.props.match.params.id;
+        fetchData();
+    }, [speaker, error, props.match.params.id]);
 
-        rest.doGet("http://localhost:9090/persons/" + speakerId)
-            .then((response) => {
-                const speaker = response.data;
+    return (
+        <div className="container">
+            <div className="row mt-5">
+                <dl className="row">
+                    <dt className="col-sm-3">Speaker</dt>
+                    <dd className="col-sm-9">{speaker.name}</dd>
 
-                rest.doGet("http://localhost:9090/talks/person/" + speakerId)
-                    .then((response) => {
-                        speaker.talks = response.data;
-
-                        this.setState({
-                            speaker: speaker,
-                        });
-                    }, (error) => {
-                        console.log(error);
-                    });
-
-            }, (error) => {
-                console.log(error);
-            });
-    }
-
-    render() {
-        const {
-            name,
-            talks,
-        } = this.state.speaker;
-
-        return (
-            <div className="container">
-                <div className="row mt-5">
-                    <dl className="row">
-                        <dt className="col-sm-3">Speaker</dt>
-                        <dd className="col-sm-9">{name}</dd>
-
-                        <dt className="col-sm-3">Talks</dt>
-                        <dd className="col-sm-9">
-                            {talks.map((talk) =>
-                                <Link to={"/talkDetails/" + talk.id} key={talk.id} className="card-link">{talk.title}</Link>
-                            )}
-                        </dd>
-                    </dl>
-                </div>
+                    <dt className="col-sm-3">Talks</dt>
+                    <dd className="col-sm-9">
+                        {speaker.talks.map((talk) =>
+                            <Link to={"/talkDetails/" + talk.id} key={talk.id} className="card-link">{talk.title}</Link>
+                        )}
+                    </dd>
+                </dl>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default withRouter(SpeakerDetails);
