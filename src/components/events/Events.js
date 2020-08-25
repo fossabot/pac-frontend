@@ -12,13 +12,13 @@ class Events extends React.Component {
     }
 
     componentDidMount() {
-        rest.doGet("http://localhost:9090/events")
+        rest.doGet(`${process.env.REACT_APP_HOST}/events`)
             .then((response) => {
                 const events = response.data.slice();
 
                 const promises = [];
                 events.forEach(event => {
-                    promises.push(rest.doGet("http://localhost:9090/topics/event/" + event.id));
+                    promises.push(rest.doGet(`${process.env.REACT_APP_HOST}/topics/event/${event.id}`));
                 });
 
                 axios.all(promises)
