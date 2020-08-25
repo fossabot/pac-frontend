@@ -28,7 +28,7 @@ const Speakers = () => {
         }
 
         fetchData();
-    }, [speakers, error]);
+    }, [error]);
 
     return (
         <div className="container">

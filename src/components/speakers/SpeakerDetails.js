@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, withRouter} from "react-router-dom";
+import {Link, withRouter, useParams} from "react-router-dom";
 import rest from "../../utils/rest";
 
 const SpeakerDetails = (props) => {
@@ -10,13 +10,15 @@ const SpeakerDetails = (props) => {
     });
     const [error, setError] = React.useState("");
 
+    const param = useParams();
+
     React.useEffect(() => {
+
         async function fetchData() {
             try {
-                const speaker = await rest.doGet(`${process.env.REACT_APP_HOST}/persons/${props.match.params.id}`);
-                const talks = await rest.doGet(`${process.env.REACT_APP_HOST}/talks/person/${props.match.params.id}`);
+                const speaker = await rest.doGet(`${process.env.REACT_APP_HOST}/persons/${param.id}`);
+                const talks = await rest.doGet(`${process.env.REACT_APP_HOST}/talks/person/${param.id}`);
 
-                debugger;
                 Object.assign(speaker.data, {talks: talks.data});
 
                 setSpeaker(speaker.data);
@@ -26,7 +28,7 @@ const SpeakerDetails = (props) => {
         }
 
         fetchData();
-    }, [speaker, error, props.match.params.id]);
+    }, [param, error]);
 
     return (
         <div className="container">
