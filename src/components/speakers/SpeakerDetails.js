@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, withRouter, useParams} from "react-router-dom";
 import rest from "../../utils/rest";
 
-const SpeakerDetails = (props) => {
+const SpeakerDetails = () => {
     const [speaker, setSpeaker] = React.useState({
         id: "",
         organization: {},
