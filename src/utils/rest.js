@@ -19,7 +19,8 @@ class Rest {
             responseType: JSON_VALUE,
             method: "POST",
             headers: {
-                Accept: "application/json"
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
             data: data,
             params: params,
@@ -32,6 +33,10 @@ class Rest {
             url: url,
             responseType: JSON_VALUE,
             method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
             data: data,
             params: params
         };
