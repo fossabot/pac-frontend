@@ -19,7 +19,11 @@ RUN npm run build
 # Build the production image with the Application
 FROM nginx:stable-alpine
 
+# Copy the application files from the build stage
 COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy the nginx configuration
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
