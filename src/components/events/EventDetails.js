@@ -1,12 +1,18 @@
 import React from 'react';
 import {useParams, withRouter} from "react-router-dom";
 import rest from "../../utils/rest";
+import { Tabs, Tab } from 'react-bootstrap';
+import {formatDate} from "../../utils/dateUtils";
+import EventDetailsDayOverview from "./EventDetailsDayOverview";
 
 const EventDetails = () => {
+    const [tabKey, setTabKey] = React.useState('');
     const [event, setEvent] = React.useState({
         id: "",
         organization: {},
         talks: [],
+        eventDays: [],
+        dayToTalkDatesMap: {},
     });
     const [error, setError] = React.useState("");
 
@@ -43,16 +49,10 @@ const EventDetails = () => {
                 const event = await rest.doGet(`${process.env.REACT_APP_HOST}/events/${param.id}`);
                 const talkDates = await rest.doGet(`${process.env.REACT_APP_HOST}/talkDates/event/${param.id}`);
 
-                console.log(event.data);
-                console.log(talkDates.data);
-
                 const eventDays = getDaysBetween(event.data.beginDate, event.data.endDate);
-                console.log(eventDays);
+                const dayToTalkDatesMap = createDayToTalksMap(eventDays, talkDates.data);
 
-                const dayToTalksMap = createDayToTalksMap(eventDays, talkDates.data);
-                console.log(dayToTalksMap);
-
-                setEvent(event.data);
+                setEvent({...event.data, dayToTalkDatesMap, eventDays});
             } catch (e) {
                 setError(e.message);
             }
@@ -61,11 +61,29 @@ const EventDetails = () => {
         fetchData();
     }, [param, error]);
 
+    const {
+        name,
+        eventDays,
+        dayToTalkDatesMap,
+    } = event;
+
     return (
         <div className="container">
             <div className="row mt-5">
-                <h2>EventDetails id: {event.id}</h2>
+                <h2>{name}</h2>
             </div>
+            <Tabs
+                id="event-talks-tabs"
+                transition={false}
+                activeKey={tabKey ? tabKey : formatDate(eventDays[0])}
+                onSelect={(k) => setTabKey(k)}
+            >
+                {eventDays.map((eventDay) =>
+                    <Tab key={formatDate(eventDay)} eventKey={formatDate(eventDay)} title={formatDate(eventDay)}>
+                        <EventDetailsDayOverview talkDates={dayToTalkDatesMap[eventDay]} />
+                    </Tab>
+                )}
+            </Tabs>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {formatDate} from "../../utils/dateUtils";
 
 const EventCard = (props) => {
     const {
@@ -10,18 +11,6 @@ const EventCard = (props) => {
         location,
         topics,
     } = props.event;
-
-    const formatDate = (dateString) => {
-        try {
-            return new Intl.DateTimeFormat("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit",
-            }).format(new Date(Date.parse(dateString)));
-        } catch (e) {
-            return "n/a";
-        }
-    }
 
     return (
         <div className="col-10 col-lg-4 mx-auto mb-5">
