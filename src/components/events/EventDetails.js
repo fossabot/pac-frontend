@@ -16,33 +16,33 @@ const EventDetails = () => {
     });
     const [error, setError] = React.useState("");
 
-    const getDaysBetween = (start, end) => {
-        const arr = [];
-        for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
-            arr.push(new Date(dt));
-        }
-
-        return arr;
-    };
-
-    const createDayToTalksMap = (days, talkDates) => {
-        const map = {};
-        days.forEach(day => {
-            map[day] = talkDates.filter(talkDate => sameDay(day, new Date(talkDate.beginDate)))
-        });
-
-        return map;
-    }
-
-    const sameDay = (date1, date2) => {
-        return date1.getFullYear() === date2.getFullYear() &&
-            date1.getMonth() === date2.getMonth() &&
-            date1.getDate() === date2.getDate();
-    }
-
     const param = useParams();
 
     React.useEffect(() => {
+
+        const getDaysBetween = (start, end) => {
+            const arr = [];
+            for (let dt = new Date(start); dt <= new Date(end); dt.setDate(dt.getDate() + 1)) {
+                arr.push(new Date(dt));
+            }
+
+            return arr;
+        };
+
+        const createDayToTalksMap = (days, talkDates) => {
+            const map = {};
+            days.forEach(day => {
+                map[day] = talkDates.filter(talkDate => sameDay(day, new Date(talkDate.beginDate)))
+            });
+
+            return map;
+        }
+
+        const sameDay = (date1, date2) => {
+            return date1.getFullYear() === date2.getFullYear() &&
+                date1.getMonth() === date2.getMonth() &&
+                date1.getDate() === date2.getDate();
+        }
 
         async function fetchData() {
             try {
