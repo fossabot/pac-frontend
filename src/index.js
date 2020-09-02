@@ -6,10 +6,10 @@ import Keycloak from 'keycloak-js'
 
 debugger;
 
-if (true) {
+if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}`) {
     //keycloak init options
     let initOptions = {
-        url: "http://conference.keycloak/auth", realm: "PAC", clientId: "pac-frontend", onLoad: 'login-required'
+        url: `${process.env.REACT_APP_KEYCLOAK_URL}`, realm: `${process.env.REACT_APP_KEYECLOAK_REALM}`, clientId: `${process.env.REACT_APP_KEYECLOAK_ClIENT_ID}`, onLoad: 'login-required'
     }
 
     let keycloak = Keycloak(initOptions);
