@@ -54,8 +54,6 @@ const TalkDetails = () => {
         talkDates,
     } = talk;
 
-    debugger;
-
     let content;
     if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}` && (!initialized || !keycloak.authenticated)) {
         content = <div className="container">Not Authenticated!</div>
