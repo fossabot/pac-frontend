@@ -1,14 +1,18 @@
-import Keycloak from 'keycloak-js'
 
-const keycloakConfig = {
-    url: `${process.env.REACT_APP_KEYCLOAK_URL}`,
-    realm: `${process.env.REACT_APP_KEYECLOAK_REALM}`,
-    clientId: `${process.env.REACT_APP_KEYECLOAK_ClIENT_ID}`,
-    onLoad: "login-required",
-};
+var keycloak;
+function init() {
+    // If the Keycloak constructor doesn't exist we'll throw
+    // an error.
+    if (window.Keycloak === undefined) {
+        throw new Error('Can\'t find Keycloak on the global scope');
+    }
 
-export const keycloak = new Keycloak(keycloakConfig);
-
-export const keycloakProviderInitConfig = {
-    onLoad: 'check-sso',
+    keycloak = new window.Keycloak({
+        url: `${process.env.REACT_APP_KEYCLOAK_URL}`,
+        realm: `${process.env.REACT_APP_KEYECLOAK_REALM}`,
+        clientId: `${process.env.REACT_APP_KEYECLOAK_ClIENT_ID}`,
+        onLoad: "login-required",
+    });
 }
+
+export { keycloak, init };

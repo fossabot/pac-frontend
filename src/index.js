@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import {init} from "./keycloak";
+
+// Initialize the Keycloak client
+init();
+
 ReactDOM.render(
     <React.StrictMode>
         <App/>

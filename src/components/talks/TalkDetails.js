@@ -1,11 +1,9 @@
 import React from 'react';
 import {Link, useParams, withRouter} from "react-router-dom";
-import {useKeycloak} from '@react-keycloak/web'
 import rest from "../../utils/rest";
 import ContentEditable from 'react-contenteditable'
 
 const TalkDetails = () => {
-    const [keycloak, initialized] = useKeycloak();
     const [talk, setTalk] = React.useState({
         title: "",
         language: "",
@@ -54,11 +52,8 @@ const TalkDetails = () => {
         talkDates,
     } = talk;
 
-    let content;
-    if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}` && (!initialized || !keycloak.authenticated)) {
-        content = <div className="container">Not Authenticated!</div>
-    } else {
-        content = <div className="container">
+    return (
+        <div className="container">
             <div className="row mt-5">
                 <dl className="row">
                     <dt className="col-sm-3">Talk Title</dt>
@@ -100,9 +95,7 @@ const TalkDetails = () => {
                 </dl>
             </div>
         </div>
-    }
-
-    return content;
+    );
 }
 
 export default withRouter(TalkDetails);

@@ -16,19 +16,17 @@ import PrivateRoute from "./components/PrivateRoute";
 function App() {
     return (
         <div>
-            <KeycloakProvider keycloak={keycloak} initConfig={keycloakProviderInitConfig}>
-                <Router>
-                    <Navbar/>
-                    <Switch>
-                        <Route exact path="/" component={Events}/>
-                        <Route path="/eventDetails/:id" children={EventDetails}/>
-                        <Route path="/speakers" component={Speakers}/>
-                        <Route path="/speakerDetails/:id" children={SpeakerDetails}/>
-                        <PrivateRoute path="/talkDetails/:id" component={TalkDetails}/>
-                    </Switch>
-                    <Footer/>
-                </Router>
-            </KeycloakProvider>
+            <Router>
+                <Navbar/>
+                <Switch>
+                    <Route exact path="/" component={Events}/>
+                    <Route path="/eventDetails/:id" children={EventDetails}/>
+                    <Route path="/speakers" component={Speakers}/>
+                    <Route path="/speakerDetails/:id" children={SpeakerDetails}/>
+                    <PrivateRoute path="/talkDetails/:id" component={TalkDetails}/>
+                </Switch>
+                <Footer/>
+            </Router>
         </div>
     );
 }
