@@ -33,7 +33,11 @@ const TalkDetails = () => {
     const handleChange = (evt) => {
         async function updateTalkData() {
             try {
-                const updatedTalk = await rest.doPut(`${process.env.REACT_APP_HOST}/talks/${param.id}`, {...talk, title: evt.target.value});
+                const updatedTalk = await rest.doPut(
+                    `${process.env.REACT_APP_HOST}/talks/${param.id}`,
+                    {...talk, title: evt.target.value},
+                    {},
+                    {"Authorization": "Bearer " + localStorage.getItem('kc_token')});
                 setTalk(updatedTalk.data);
             } catch (e) {
                 setError(e.message);

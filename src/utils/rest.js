@@ -13,14 +13,15 @@ class Rest {
         return axios(requestOptions);
     }
 
-    doPost(url, data = {}, params = {}) {
+    doPost(url, data = {}, params = {}, headers = {}) {
         const requestOptions = {
             url: url,
             responseType: JSON_VALUE,
             method: "POST",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headers
             },
             data: data,
             params: params,
@@ -28,14 +29,15 @@ class Rest {
         return axios(requestOptions);
     }
 
-    doPut(url, data = {}, params = {}) {
+    doPut(url, data = {}, params = {}, headers = {}) {
         const requestOptions = {
             url: url,
             responseType: JSON_VALUE,
             method: "PUT",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headers
             },
             data: data,
             params: params

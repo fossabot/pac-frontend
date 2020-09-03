@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { keycloak} from "../keycloak";
+import {keycloak} from "../keycloak";
 
 function Keycloak({children}) {
     // We'll use this variable to halt the app
@@ -7,6 +7,7 @@ function Keycloak({children}) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     // The `init()` method we'll be in charge of starting
     // the authentication flow.
+
     useEffect(() => {
         keycloak
             .init({
@@ -17,9 +18,15 @@ function Keycloak({children}) {
                 // Both do the same, except the first one
                 // redirects the user to the login page if
                 // he's not authenticated.
-                onLoad: 'login-required'
+                onLoad: 'login-required',
+                checkLoginIframe: false,
             })
             .then((authenticated) => {
+                if (authenticated) {
+                    localStorage.setItem('kc_token', keycloak.token);
+                    localStorage.setItem('kc_refreshToken', keycloak.refreshToken);
+                }
+
                 // We can continue rendering the app
                 // now that the user has been authenticated
                 setIsAuthenticated(authenticated)

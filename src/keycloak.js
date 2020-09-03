@@ -1,5 +1,5 @@
+let keycloak;
 
-var keycloak;
 function init() {
     // If the Keycloak constructor doesn't exist we'll throw
     // an error.
@@ -15,4 +15,4 @@ function init() {
     });
 }
 
-export { keycloak, init };
+export {keycloak, init};

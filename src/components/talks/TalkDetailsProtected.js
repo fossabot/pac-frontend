@@ -5,13 +5,13 @@ import TalkDetails from "./TalkDetails";
 const TalkDetailsProtected = () => {
 
     if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}`) {
-        return <TalkDetails/>
-    } else {
         return (
             <Keycloak>
                 <TalkDetails/>
             </Keycloak>
         )
+    } else {
+        return <TalkDetails/>
     }
 }
 
