@@ -3,7 +3,7 @@ import { keycloak} from "../keycloak";
 
 function Keycloak({children}) {
     // We'll use this variable to halt the app
-    // excecution until the user is Authenticated
+    // execution until the user is Authenticated
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     // The `init()` method we'll be in charge of starting
     // the authentication flow.
@@ -19,12 +19,12 @@ function Keycloak({children}) {
                 // he's not authenticated.
                 onLoad: 'login-required'
             })
-            .success((authenticated) => {
+            .then((authenticated) => {
                 // We can continue rendering the app
                 // now that the user has been authenticated
                 setIsAuthenticated(authenticated)
             })
-            .error((err) => {
+            .catch((err) => {
                 // Log an error method if something went
                 // wrong.
                 console.error(err);
