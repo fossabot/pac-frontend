@@ -4,7 +4,7 @@ import TalkDetails from "./TalkDetails";
 
 const TalkDetailsProtected = () => {
 
-    if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}`) {
+    if (`${process.env.REACT_APP_ENABLE_KEYCLOAK}` && window.Keycloak !== undefined) {
         return (
             <Keycloak>
                 <TalkDetails/>
